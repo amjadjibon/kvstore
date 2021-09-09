@@ -1,0 +1,18 @@
+syntax = "proto3";
+package model;
+option go_package = "gitlab.upay.dev/golang/kvstore/model;model";
+
+message KVStore {
+  string key = 1;
+  bytes value = 2;
+  fixed64 created_at = 4;
+  fixed64 updated_at = 5;
+}
+
+message InputModel {
+  fixed64 id = 1;
+  string name = 2;
+
+  map<string, string> string_map = 11;
+  map<string, sfixed64> int_map = 12;
+}
