@@ -2,7 +2,6 @@ package encoders
 
 import (
 	"encoding/json"
-	"gitlab.upay.dev/golang/kvstore/model"
 )
 
 // JSONCodec encodes/decodes Go values to/from JSON.
@@ -10,11 +9,11 @@ import (
 type JSONCodec struct{}
 
 // Marshal encodes a Go value to JSON.
-func (c JSONCodec) Marshal(v *model.InputModel) ([]byte, error) {
+func (c JSONCodec) Marshal(v interface{}) ([]byte, error) {
 	return json.Marshal(v)
 }
 
 // Unmarshal decodes a JSON value into a Go value.
-func (c JSONCodec) Unmarshal(data []byte, v *model.InputModel) error {
+func (c JSONCodec) Unmarshal(data []byte, v interface{}) error {
 	return json.Unmarshal(data, v)
 }

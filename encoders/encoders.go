@@ -1,13 +1,9 @@
 package encoders
 
-import (
-	"gitlab.upay.dev/golang/kvstore/model"
-)
-
-func Marshal(encoder Encoder, v *model.InputModel) ([]byte, error) {
+func Marshal(encoder Encoder, v interface{}) ([]byte, error) {
 	return encoder.Marshal(v)
 }
 
-func Unmarshal(encoder Encoder, data []byte, v *model.InputModel) error {
+func Unmarshal(encoder Encoder, data []byte, v interface{}) error {
 	return encoder.Unmarshal(data, v)
 }

@@ -15,8 +15,10 @@ update-module:
 	go get -u github.com/vmihailenco/msgpack/v5
 	go get -u google.golang.org/protobuf
 	go get -u github.com/go-redis/redis/v8
+	go get -u github.com/jackc/pgx/v4
+	go get -u github.com/google/flatbuffers/go
 
-update-protoc:
+protoc:
 	@protoc \
 		-I=./proto \
 			--go_opt=module=gitlab.upay.dev/golang/kvstore \

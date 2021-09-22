@@ -3,7 +3,6 @@ package encoders
 import (
 	"bytes"
 	"encoding/gob"
-	"gitlab.upay.dev/golang/kvstore/model"
 )
 
 // GOBCodec encodes/decodes Go values to/from gob.
@@ -11,7 +10,7 @@ import (
 type GOBCodec struct{}
 
 // Marshal encodes a Go value to gob.
-func (c GOBCodec) Marshal(v *model.InputModel) ([]byte, error) {
+func (c GOBCodec) Marshal(v interface{}) ([]byte, error) {
 	var buffer bytes.Buffer
 	encoder := gob.NewEncoder(&buffer)
 	err := encoder.Encode(v)
@@ -22,7 +21,7 @@ func (c GOBCodec) Marshal(v *model.InputModel) ([]byte, error) {
 }
 
 // Unmarshal decodes a gob value into a Go value.
-func (c GOBCodec) Unmarshal(data []byte, v *model.InputModel) error {
+func (c GOBCodec) Unmarshal(data []byte, v interface{}) error {
 	reader := bytes.NewReader(data)
 	decoder := gob.NewDecoder(reader)
 	return decoder.Decode(v)
