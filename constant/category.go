@@ -1,4 +1,4 @@
-package postgresql
+package constant
 
 import "github.com/mkawserm/abesh/constant"
 
