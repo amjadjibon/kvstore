@@ -44,5 +44,5 @@ func (k *KVRedis) Delete(ctx context.Context, key string) error {
 }
 
 func init() {
-	registry.NewCapabilityRegistry().RegisterCapability(ContractId, &KVRedis{})
+	registry.GlobalRegistry().AddCapability(&KVRedis{})
 }
