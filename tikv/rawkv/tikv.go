@@ -31,6 +31,8 @@ func (t TiKV) Setup() error {
 
 func (t TiKV) SetConfigMap(cm model.ConfigMap) error {
 	t.mCM = cm
+	t.mEncodingName = cm.String("encoding_name", "json")
+	t.mPDAddress = cm.StringList("pd_address", ",", []string{})
 	return nil
 }
 
