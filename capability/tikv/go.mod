@@ -1,4 +1,4 @@
-module github.com/amjadjibon/kvstore/tikv
+module github.com/amjadjibon/kvstore/capbility/tikv
 
 go 1.17
 
