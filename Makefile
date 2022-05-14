@@ -1,10 +1,10 @@
 VERSION = "0.0.1"
 change-version:
-	@echo $(version)>VERSION
+	@echo $(VERSION)>VERSION
 	@git add VERSION
-	@git commit -m "v$(version)"
-	@git tag -a "v$(version)" -m "v$(version)"
-	@git push origin "v$(version)"
+	@git commit -m "v$(VERSION)"
+	@git tag -a "v$(VERSION)" -m "v$(VERSION)"
+	@git push origin "v$(VERSION)"
 
 test:
 	go test -count=1 -race ./... -v
