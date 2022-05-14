@@ -1,4 +1,4 @@
-package rawkv
+package tikv
 
 import (
 	"context"
@@ -20,6 +20,26 @@ type TiKV struct {
 	mEncoding     encodingIface.IEncoding
 }
 
+func (t TiKV) Name() string {
+	return NameRawKV
+}
+
+func (t TiKV) Version() string {
+	return Version
+}
+
+func (t TiKV) Category() string {
+	return Category
+}
+
+func (t TiKV) ContractId() string {
+	return ContractIdRawKV
+}
+
+func (t TiKV) New() iface.ICapability {
+	return &TiKV{}
+}
+
 func (t TiKV) Setup() error {
 	var client, err = rawkv.NewClient(context.Background(), t.mPDAddress, config.DefaultConfig().Security)
 	if err != nil {
@@ -38,26 +58,6 @@ func (t TiKV) SetConfigMap(cm model.ConfigMap) error {
 
 func (t TiKV) GetConfigMap() model.ConfigMap {
 	return t.mCM
-}
-
-func (t TiKV) Name() string {
-	return Name
-}
-
-func (t TiKV) Version() string {
-	return Version
-}
-
-func (t TiKV) Category() string {
-	return Category
-}
-
-func (t TiKV) ContractId() string {
-	return ContractId
-}
-
-func (t TiKV) New() iface.ICapability {
-	return &TiKV{}
 }
 
 func (t TiKV) Get(ctx context.Context, key string, value interface{}) error {
