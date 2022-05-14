@@ -1,9 +1,7 @@
 VERSION = "0.0.1"
 change-version:
 	@echo $(version)>VERSION
-	@echo "package constant\n\n//Version constant of the service\nconst Version = \"$(version)\"">constant/version.go
 	@git add VERSION
-	@git add constant/version.go
 	@git commit -m "v$(version)"
 	@git tag -a "v$(version)" -m "v$(version)"
 	@git push origin "v$(version)"
