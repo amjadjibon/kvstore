@@ -1,4 +1,4 @@
-package tikv
+package rawkv
 
 import (
 	"github.com/mkawserm/abesh/constant"

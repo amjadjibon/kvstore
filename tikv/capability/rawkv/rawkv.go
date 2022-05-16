@@ -1,4 +1,4 @@
-package tikv
+package rawkv
 
 import (
 	"context"
@@ -12,7 +12,7 @@ import (
 	"github.com/tikv/client-go/v2/rawkv"
 )
 
-type TiKV struct {
+type TiKVRawKV struct {
 	mCM           model.ConfigMap
 	mClient       *rawkv.Client
 	mPDAddress    []string
@@ -20,27 +20,27 @@ type TiKV struct {
 	mEncoding     encodingIface.IEncoding
 }
 
-func (t TiKV) Name() string {
+func (t *TiKVRawKV) Name() string {
 	return NameRawKV
 }
 
-func (t TiKV) Version() string {
+func (t *TiKVRawKV) Version() string {
 	return Version
 }
 
-func (t TiKV) Category() string {
+func (t *TiKVRawKV) Category() string {
 	return Category
 }
 
-func (t TiKV) ContractId() string {
+func (t *TiKVRawKV) ContractId() string {
 	return ContractIdRawKV
 }
 
-func (t TiKV) New() iface.ICapability {
-	return &TiKV{}
+func (t *TiKVRawKV) New() iface.ICapability {
+	return &TiKVRawKV{}
 }
 
-func (t TiKV) Setup() error {
+func (t *TiKVRawKV) Setup() error {
 	var client, err = rawkv.NewClient(context.Background(), t.mPDAddress, config.DefaultConfig().Security)
 	if err != nil {
 		return err
@@ -49,18 +49,18 @@ func (t TiKV) Setup() error {
 	return nil
 }
 
-func (t TiKV) SetConfigMap(cm model.ConfigMap) error {
+func (t *TiKVRawKV) SetConfigMap(cm model.ConfigMap) error {
 	t.mCM = cm
 	t.mEncodingName = cm.String("encoding_name", "json")
 	t.mPDAddress = cm.StringList("pd_address", ",", []string{})
 	return nil
 }
 
-func (t TiKV) GetConfigMap() model.ConfigMap {
+func (t *TiKVRawKV) GetConfigMap() model.ConfigMap {
 	return t.mCM
 }
 
-func (t TiKV) Get(ctx context.Context, key string, value interface{}) error {
+func (t *TiKVRawKV) Get(ctx context.Context, key string, value interface{}) error {
 	valueBytes, err := t.mClient.Get(ctx, []byte(key))
 	if err != nil {
 		return err
@@ -68,7 +68,7 @@ func (t TiKV) Get(ctx context.Context, key string, value interface{}) error {
 	return t.mEncoding.Unmarshal(valueBytes, value)
 }
 
-func (t TiKV) Set(ctx context.Context, key string, value interface{}, ttl time.Duration) error {
+func (t *TiKVRawKV) Set(ctx context.Context, key string, value interface{}, ttl time.Duration) error {
 	valueBytes, err := t.mEncoding.Marshal(value)
 	if err != nil {
 		return err
@@ -76,10 +76,10 @@ func (t TiKV) Set(ctx context.Context, key string, value interface{}, ttl time.D
 	return t.mClient.PutWithTTL(ctx, []byte(key), valueBytes, uint64(ttl))
 }
 
-func (t TiKV) Delete(ctx context.Context, key string) error {
+func (t *TiKVRawKV) Delete(ctx context.Context, key string) error {
 	return t.mClient.Delete(ctx, []byte(key))
 }
 
 func init() {
-	registry.GlobalRegistry().AddCapability(&TiKV{})
+	registry.GlobalRegistry().AddCapability(&TiKVRawKV{})
 }

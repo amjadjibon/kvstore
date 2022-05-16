@@ -1,14 +1,7 @@
 VERSION = "0.0.1"
-change-version:
-	@echo $(VERSION)>VERSION
-	@git add VERSION
-	@git commit -m "v$(VERSION)"
-	@git tag -a "v$(VERSION)" -m "v$(VERSION)"
-	@git push origin "v$(VERSION)"
-
 change-tikv-version:
-	@echo "package tikv\n\n// Version constant of tikv\nconst Version = \"$(VERSION)\"">tikv/version.go
-	@git add tikv/version.go
+	@echo "package tikv\n\n// Version constant of tikv\nconst Version = \"$(VERSION)\"">tikv/capability/rawkv/version.go
+	@git add tikv/capability/rawkv/version.go
 	@git commit -m "tikv/v$(VERSION)"
 	@git tag -a "tikv/v$(VERSION)" -m "tikv/v$(VERSION)"
 	@git push origin
