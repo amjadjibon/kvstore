@@ -10,6 +10,8 @@ import (
 	"github.com/mkawserm/abesh/registry"
 	"github.com/tikv/client-go/v2/config"
 	"github.com/tikv/client-go/v2/rawkv"
+
+	"github.com/amjadjibon/kvstore/tikv/constant"
 )
 
 type TiKVRawKV struct {
@@ -25,7 +27,7 @@ func (t *TiKVRawKV) Name() string {
 }
 
 func (t *TiKVRawKV) Version() string {
-	return Version
+	return constant.Version
 }
 
 func (t *TiKVRawKV) Category() string {
