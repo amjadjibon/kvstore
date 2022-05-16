@@ -1,4 +1,4 @@
-package rawkv
+package tikv
 
-// Version constant of rawkv
-const Version = "0.1.1"
+// Version constant of tikv
+const Version = "0.2.0"
